@@ -220,8 +220,16 @@
     <!-- Row 2: Video Player -->
     <section class="card row-video">
       <div class="video-wrapper">
-        <!-- Video file must be in the same directory as index.html -->
-        <video id="lessonVideo" src="3D-Printing.mp4" preload="metadata"></video>
+        <!-- Video loaded from You tube as the files size is too large <50MB -->
+        <iframe
+            id="lessonVideo"
+            src="https://www.youtube.com/embed/_c8fJ8hc4rI"
+            title="3D-Printing of Houses"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen > 
+        </iframe>
+
       </div>
       <div class="video-controls">
         <button class="video-button" id="btnPlay">
