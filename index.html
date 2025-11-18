@@ -66,59 +66,29 @@
       color: var(--text-sub);
     }
 
-    /* Row 2 – Video player */
+    /* Row 2 – Video (YouTube) */
     .row-video {
       display: flex;
       flex-direction: column;
-      gap: 10px;
     }
 
     .video-wrapper {
       position: relative;
       width: 100%;
-      border-radius: 16px;
+      max-width: 100%;
+      border-radius: 18px;
       overflow: hidden;
       border: 1px solid var(--border-soft);
       background: #000;
-      /* approx 16:9 height similar to expanded HeyGen zone on iPhone */
+      /* tightly fills the available card area with a 16:9 player */
       aspect-ratio: 16 / 9;
     }
 
-    .video-wrapper video {
+    .video-wrapper iframe {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      border: 0;
       display: block;
-    }
-
-    .video-controls {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .video-button {
-      flex: 1;
-      padding: 9px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: radial-gradient(circle at top, rgba(34, 197, 94, 0.18), rgba(15, 23, 42, 0.95));
-      color: var(--text-main);
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .video-button:active {
-      transform: scale(0.97);
-      opacity: 0.85;
     }
 
     /* Row 3 – Instructions */
@@ -201,11 +171,6 @@
       .row-heading h1 {
         font-size: 1.25rem;
       }
-
-      .video-button {
-        font-size: 0.8rem;
-        padding: 8px 4px;
-      }
     }
   </style>
 </head>
@@ -217,37 +182,25 @@
       <p>Watch the video, then interact with the Mediator avatar to ask your questions.</p>
     </section>
 
-    <!-- Row 2: Video Player -->
+    <!-- Row 2: Video Player (YouTube) -->
     <section class="card row-video">
       <div class="video-wrapper">
-        <!-- Video loaded from You tube as the files size is too large <50MB -->
+        <!-- YouTube embed replaces local MP4 -->
         <iframe
-            id="lessonVideo"
-            src="https://www.youtube.com/embed/_c8fJ8hc4rI"
-            title="3D-Printing of Houses"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen > 
-        </iframe>
-
-      </div>
-      <div class="video-controls">
-        <button class="video-button" id="btnPlay">
-          ▶ Play
-        </button>
-        <button class="video-button" id="btnPause">
-          ⏸ Pause
-        </button>
-        <button class="video-button" id="btnStop">
-          ⏹ Stop
-        </button>
+          id="lessonVideo"
+          src="https://www.youtube.com/embed/_c8fJ8hc4rI"
+          title="3D-Printing of Houses"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
       </div>
     </section>
 
     <!-- Row 3: Instructions -->
     <section class="card row-instructions">
       <div class="instruction-badge">
-        ℹ Session Instructions
+        ℹ SESSION INSTRUCTIONS
       </div>
       <p>
         At any point, if you have a question, you may pause/stop the video and ask the question to the
@@ -280,32 +233,7 @@
     </section>
   </main>
 
-  <!-- Simple video control script -->
-  <script>
-    (function () {
-      const video = document.getElementById("lessonVideo");
-      const btnPlay = document.getElementById("btnPlay");
-      const btnPause = document.getElementById("btnPause");
-      const btnStop = document.getElementById("btnStop");
-
-      if (!video) return;
-
-      btnPlay.addEventListener("click", () => {
-        video.play();
-      });
-
-      btnPause.addEventListener("click", () => {
-        video.pause();
-      });
-
-      btnStop.addEventListener("click", () => {
-        video.pause();
-        video.currentTime = 0;
-      });
-    })();
-  </script>
-
-  <!-- Row 4: HeyGen Avatar script (as provided) -->
+  <!-- HeyGen Avatar script (unchanged) -->
   <script>
     !function (window) {
       const host = "https://labs.heygen.com",
