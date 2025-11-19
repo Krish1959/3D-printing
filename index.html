@@ -221,7 +221,7 @@
     <section class="card row-video">
       <div class="video-wrapper">
         <!-- Video file must be in the same directory as index.html -->
-        <!-- Added playsinline + webkit-playsinline so it stays inside the frame on iPhone -->
+        <!-- playsinline so it stays inside the frame on iPhone -->
         <video id="lessonVideo" src="3D-Printing.mp4" preload="metadata" playsinline webkit-playsinline></video>
       </div>
       <div class="video-controls">
@@ -289,6 +289,20 @@
       video.playsInline = true;
       video.webkitPlaysInline = true;
 
+      // Common "stop" logic so we can reuse it
+      function resetVideo() {
+        // This is effectively the same as pressing Stop:
+        video.pause();
+        try {
+          video.currentTime = 0;
+        } catch (e) {
+          // some browsers may throw while seeking; ignore
+        }
+      }
+
+      // a) Show the first frame as soon as the video metadata is ready
+      video.addEventListener("loadedmetadata", resetVideo);
+
       btnPlay.addEventListener("click", () => {
         video.play();
       });
@@ -297,10 +311,7 @@
         video.pause();
       });
 
-      btnStop.addEventListener("click", () => {
-        video.pause();
-        video.currentTime = 0;
-      });
+      btnStop.addEventListener("click", resetVideo);
     })();
   </script>
 
@@ -361,4 +372,3 @@
   </script>
 </body>
 </html>
-
