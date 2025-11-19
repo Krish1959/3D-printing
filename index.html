@@ -163,7 +163,7 @@
       font-size: 0.8rem;
     }
 
-    /* Row 4 – Presenter (HeyGen zone text) */
+    /* Row 4 – Mediator (HeyGen zone text) */
     .row-mediator {
       font-size: 0.9rem;
       color: var(--text-sub);
@@ -214,14 +214,15 @@
     <!-- Row 1: Heading -->
     <section class="card row-heading">
       <h1>3D-Printing of Houses</h1>
-      <p>Watch the video, then interact with the Presenter avatar to ask your questions.</p>
+      <p>Watch the video, then interact with the Mediator avatar to ask your questions.</p>
     </section>
 
     <!-- Row 2: Video Player -->
     <section class="card row-video">
       <div class="video-wrapper">
         <!-- Video file must be in the same directory as index.html -->
-        <video id="lessonVideo" src="3D-Printing.mp4" preload="metadata"></video>
+        <!-- Added playsinline + webkit-playsinline so it stays inside the frame on iPhone -->
+        <video id="lessonVideo" src="3D-Printing.mp4" preload="metadata" playsinline webkit-playsinline></video>
       </div>
       <div class="video-controls">
         <button class="video-button" id="btnPlay">
@@ -243,7 +244,7 @@
       </div>
       <p>
         At any point, if you have a question, you may pause/stop the video and ask the question to the
-        <strong>Presenter</strong> below.
+        <strong>Mediator</strong> below.
       </p>
       <p>
         You need to press <span class="chat-now-highlight"><strong>Chat Now</strong></span> to begin
@@ -258,16 +259,16 @@
     <!-- Row 4: HeyGen Avatar (Mediator) -->
     <section class="card row-mediator">
       <div class="row-mediator-header">
-        <h2>Presenter – Avatar</h2>
+        <h2>Mediator – HeyGen Avatar</h2>
         <span class="status-dot" aria-label="online"></span>
       </div>
       <p>
-        When you are ready, tap <strong>Chat Now</strong> in the Presenter avatar window that appears. Ask one question at a time
+        When you are ready, tap <strong>Chat Now</strong> in the avatar window that appears. Ask one question at a time
         and wait for the reply to finish before asking the next question.
       </p>
       <p class="mediator-hint">
-        The Presenter video area is designed to be approximately the same size as the lesson video above for a consistent
-        experience on your mobile Phone screen.
+        The Mediator video area is designed to be approximately the same size as the lesson video above for a consistent
+        experience on your iPhone screen.
       </p>
     </section>
   </main>
@@ -281,6 +282,12 @@
       const btnStop = document.getElementById("btnStop");
 
       if (!video) return;
+
+      // Ensure inline playback on iOS Safari (no fullscreen popup)
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "");
+      video.playsInline = true;
+      video.webkitPlaysInline = true;
 
       btnPlay.addEventListener("click", () => {
         video.play();
